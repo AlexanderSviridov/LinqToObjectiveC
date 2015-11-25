@@ -12,7 +12,7 @@
 
 @implementation NSArrayLinqExtensionsTest
 
-- (NSArray*) createTestData
+- (NSArray<Person *>*) createTestData
 {
     return @[[Person personWithName:@"bob" age:@25],
              [Person personWithName:@"frank" age:@45],
@@ -23,10 +23,10 @@
 
 - (void)testWhere
 {
-    NSArray* input = [self createTestData];
+    NSArray<Person *>* input = [self createTestData];
     
-    NSArray* peopleWhoAre25 = [input linq_where:^BOOL(id person) {
-        return [[person age] isEqualToNumber:@25];
+    NSArray<Person *>* peopleWhoAre25 = [input linq_where:^BOOL(Person *item) {
+        return [[item age] isEqualToNumber:@25];
     }];
     
     XCTAssertEqual(peopleWhoAre25.count, (NSUInteger)2, @"There should have been 2 items returned");
@@ -36,9 +36,9 @@
 
 - (void)testSelect
 {
-    NSArray* input = [self createTestData];
+    NSArray<Person *>* input = [self createTestData];
     
-    NSArray* names = [input linq_select:^id(id person) {
+    NSArray<NSString *>* names = [input linq_select:^id(Person *person) {
         return [person name];
     }];
     
@@ -50,9 +50,9 @@
 
 - (void)testSelectWithNil
 {
-    NSArray* input = [self createTestData];
+    NSArray<Person *>* input = [self createTestData];
     
-    NSArray* names = [input linq_select:^id(id person) {
+    NSArray* names = [input linq_select:^id(Person *person) {
         return [[person name] isEqualToString:@"bob"] ? nil : [person name];
     }];
     
@@ -64,9 +64,9 @@
 
 - (void)testSelectAndStopOnNil
 {
-    NSArray* input = [self createTestData];
+    NSArray<Person *>* input = [self createTestData];
     
-    NSArray* names = [input linq_selectAndStopOnNil:^id(id person) {
+    NSArray<NSString *>* names = [input linq_selectAndStopOnNil:^id(id person) {
         return [person name];
     }];
     
@@ -78,7 +78,7 @@
 
 - (void)testSelectAndStopOnNilWithNil
 {
-    NSArray* input = [self createTestData];
+    NSArray<Person *>* input = [self createTestData];
     
     NSArray* names = [input linq_selectAndStopOnNil:^id(id person) {
         return [[person name] isEqualToString:@"bob"] ? nil : [person name];
@@ -396,11 +396,11 @@
 
 - (void)testToDictionaryWithValueSelector
 {
-    NSArray* input = @[@"James", @"Jim", @"Bob"];
+    NSArray<NSString *>* input = @[@"James", @"Jim", @"Bob"];
     
-    NSDictionary* dictionary = [input linq_toDictionaryWithKeySelector:^id(id item) {
+    NSDictionary<NSString *, NSString *>* dictionary = [input linq_toDictionaryWithKeySelector:^id(NSString *item) {
         return [item substringToIndex:1];
-    } valueSelector:^id(id item) {
+    } valueSelector:^id(NSString *item) {
         return [item lowercaseString];
     }];
     
@@ -421,12 +421,12 @@
 
 - (void)testToDictionaryWithValueSelectorWithNil
 {
-    NSArray* input = @[@"James", @"Jim", @"Bob"];
+    NSArray<NSString *>* input = @[@"James", @"Jim", @"Bob"];
     
-    NSDictionary* dictionary = [input linq_toDictionaryWithKeySelector:^id(id item) {
+    NSDictionary* dictionary = [input linq_toDictionaryWithKeySelector:^id(NSString *item) {
         NSString* firstChar = [item substringToIndex:1];
         return [firstChar isEqualToString:@"J"] ? nil : firstChar;
-    } valueSelector:^id(id item) {
+    } valueSelector:^id(NSString *item) {
         NSString* lowercaseName = [item lowercaseString];
         return [lowercaseName isEqualToString:@"bob"] ? nil : lowercaseName;
     }];
@@ -448,9 +448,9 @@
 
 - (void)testToDictionary
 {
-    NSArray* input = @[@"Jim", @"Bob"];
+    NSArray<NSString *>* input = @[@"Jim", @"Bob"];
     
-    NSDictionary* dictionary = [input linq_toDictionaryWithKeySelector:^id(id item) {
+    NSDictionary* dictionary = [input linq_toDictionaryWithKeySelector:^id(NSString *item) {
         return [item substringToIndex:1];
     }];
     
@@ -470,9 +470,9 @@
 
 - (void) testCount
 {
-    NSArray* input = @[@25, @35, @25];
+    NSArray<NSNumber *>* input = @[@25, @35, @25];
     
-    NSUInteger numbersEqualTo25 = [input linq_count:^BOOL(id item) {
+    NSUInteger numbersEqualTo25 = [input linq_count:^BOOL(NSNumber *item) {
         return [item isEqualToNumber:@25];
     }];
     
@@ -481,7 +481,7 @@
 
 - (void) testConcat
 {
-    NSArray* input = @[@25, @35];
+    NSArray<NSNumber *>* input = @[@25, @35];
     
     NSArray* result = [input linq_concat:@[@45, @55]];
     

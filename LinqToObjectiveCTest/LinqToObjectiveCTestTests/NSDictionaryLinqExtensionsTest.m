@@ -13,13 +13,13 @@
 
 - (void)testWhere
 {
-    NSDictionary* input = @{@"A" : @"Apple",
+    NSDictionary<NSString *, NSString *>* input = @{@"A" : @"Apple",
     @"B" : @"Banana",
     @"C" : @"Carrot",
     @"D" : @"Fish"};
     
     
-    NSDictionary* result = [input linq_where:^BOOL(id key, id value) {
+    NSDictionary* result = [input linq_where:^BOOL(NSString *key, NSString *value) {
         return [key isEqual:[value substringToIndex:1]];
     }];
     
