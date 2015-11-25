@@ -32,7 +32,7 @@
                             return [NSString stringWithFormat:@"%@&%@", item, aggregate];
                         }];
     
-    STAssertEqualObjects(@"page=24&q=how+many+kittens&lang=en-US&key=1234", result, nil);
+    XCTAssertEqualObjects(@"page=24&q=how+many+kittens&lang=en-US&key=1234", result);
 }
 
 - (void)testCountingPeopleWithSurnamesStartingWithEachLetter
@@ -47,7 +47,7 @@
                                 return [[[person name] substringToIndex:1] uppercaseString];
                             }]
                          linq_select:^id(id key, id value) {
-                                return [NSNumber numberWithInt:[value count]];
+                                return [NSNumber numberWithInt:(int)[value count]];
                             }];
     
     NSLog(@"%@", result);

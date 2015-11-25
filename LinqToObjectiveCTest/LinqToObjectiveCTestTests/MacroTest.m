@@ -27,10 +27,10 @@
     
     NSArray* names = [input linq_select:LINQSel(name)];
     
-    STAssertEquals(names.count, (NSUInteger)5, nil);
+    XCTAssertEqual(names.count, (NSUInteger)5);
     // 'spot' check a few values
-    STAssertEquals(names[0], @"bob", nil);
-    STAssertEquals(names[4], @"joe", nil);
+    XCTAssertEqual(names[0], @"bob");
+    XCTAssertEqual(names[4], @"joe");
 }
 
 - (void)testSelectCast
@@ -39,10 +39,10 @@
     
     NSArray* ages = [input linq_select:LINQSelUInt(intAge)];
     
-    STAssertEquals(ages.count, (NSUInteger)5, nil);
+    XCTAssertEqual(ages.count, (NSUInteger)5);
     // 'spot' check a few values
-    STAssertEqualObjects(ages[0], @25, nil);
-    STAssertEqualObjects(ages[4], @55, nil);
+    XCTAssertEqualObjects(ages[0], @25);
+    XCTAssertEqualObjects(ages[4], @55);
 }
 
 - (void)testSelectViaKey
@@ -51,10 +51,10 @@
     
     NSArray* names = [input linq_select:LINQKey(name)];
     
-    STAssertEquals(names.count, (NSUInteger)5, nil);
+    XCTAssertEqual(names.count, (NSUInteger)5);
     // 'spot' check a few values
-    STAssertEquals(names[0], @"bob", nil);
-    STAssertEquals(names[4], @"joe", nil);
+    XCTAssertEqual(names[0], @"bob");
+    XCTAssertEqual(names[4], @"joe");
 }
 
 - (void)testSelectViaKeyPath
@@ -63,10 +63,10 @@
     
     NSArray* names = [input linq_select:LINQKeyPath(name)];
     
-    STAssertEquals(names.count, (NSUInteger)5, nil);
+    XCTAssertEqual(names.count, (NSUInteger)5);
     // 'spot' check a few values
-    STAssertEquals(names[0], @"bob", nil);
-    STAssertEquals(names[4], @"joe", nil);
+    XCTAssertEqual(names[0], @"bob");
+    XCTAssertEqual(names[4], @"joe");
 }
 
 @end

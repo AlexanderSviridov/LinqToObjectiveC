@@ -12,7 +12,7 @@
 
 @property (retain, nonatomic) NSString* name;
 @property (retain, nonatomic) NSNumber* age;
-@property (assign) NSUInteger* intAge;
+@property (assign) NSUInteger intAge;
 
 + (Person*) personWithName:(NSString*)name age:(NSNumber*)age;
 

@@ -23,10 +23,10 @@
         return [key isEqual:[value substringToIndex:1]];
     }];
     
-    STAssertEquals(result.allKeys.count, (NSUInteger)3, nil);
-    STAssertEqualObjects(result[@"A"], @"Apple", nil);
-    STAssertEqualObjects(result[@"B"], @"Banana", nil);
-    STAssertEqualObjects(result[@"C"], @"Carrot", nil);
+    XCTAssertEqual(result.allKeys.count, (NSUInteger)3);
+    XCTAssertEqualObjects(result[@"A"], @"Apple");
+    XCTAssertEqualObjects(result[@"B"], @"Banana");
+    XCTAssertEqualObjects(result[@"C"], @"Carrot");
 }
 
 - (void)testSelect
@@ -41,11 +41,11 @@
         return [NSString stringWithFormat:@"%@, %@", key, [value substringToIndex:1]];
     }];
     
-    STAssertEquals(result.allKeys.count, (NSUInteger)4, nil);
-    STAssertEqualObjects(result[@"A"], @"A, A", nil);
-    STAssertEqualObjects(result[@"B"], @"B, B", nil);
-    STAssertEqualObjects(result[@"C"], @"C, C", nil);
-    STAssertEqualObjects(result[@"D"], @"D, F", nil);
+    XCTAssertEqual(result.allKeys.count, (NSUInteger)4);
+    XCTAssertEqualObjects(result[@"A"], @"A, A");
+    XCTAssertEqualObjects(result[@"B"], @"B, B");
+    XCTAssertEqualObjects(result[@"C"], @"C, C");
+    XCTAssertEqualObjects(result[@"D"], @"D, F");
 }
 
 - (void)testSelectWithNil
@@ -61,11 +61,11 @@
         return [projection isEqualToString:@"A, A"] ? nil : projection;
     }];
     
-    STAssertEquals(result.allKeys.count, (NSUInteger)4, nil);
-    STAssertEqualObjects(result[@"A"], [NSNull null], nil);
-    STAssertEqualObjects(result[@"B"], @"B, B", nil);
-    STAssertEqualObjects(result[@"C"], @"C, C", nil);
-    STAssertEqualObjects(result[@"D"], @"D, F", nil);
+    XCTAssertEqual(result.allKeys.count, (NSUInteger)4);
+    XCTAssertEqualObjects(result[@"A"], [NSNull null]);
+    XCTAssertEqualObjects(result[@"B"], @"B, B");
+    XCTAssertEqualObjects(result[@"C"], @"C, C");
+    XCTAssertEqualObjects(result[@"D"], @"D, F");
 }
 
 - (void)testToArray
@@ -80,10 +80,10 @@
     
     NSLog(@"%@", result);
     
-    STAssertEquals(result.count, (NSUInteger)3, nil);
-    STAssertEqualObjects(result[0], @"A, Apple", nil);
-    STAssertEqualObjects(result[1], @"B, Banana", nil);
-    STAssertEqualObjects(result[2], @"C, Carrot", nil);
+    XCTAssertEqual(result.count, (NSUInteger)3);
+    XCTAssertEqualObjects(result[0], @"A, Apple");
+    XCTAssertEqualObjects(result[1], @"B, Banana");
+    XCTAssertEqualObjects(result[2], @"C, Carrot");
 }
 
 - (void)testToArrayWithNil
@@ -99,10 +99,10 @@
     
     NSLog(@"%@", result);
     
-    STAssertEquals(result.count, (NSUInteger)3, nil);
-    STAssertEqualObjects(result[0], [NSNull null], nil);
-    STAssertEqualObjects(result[1], @"B, Banana", nil);
-    STAssertEqualObjects(result[2], @"C, Carrot", nil);
+    XCTAssertEqual(result.count, (NSUInteger)3);
+    XCTAssertEqualObjects(result[0], [NSNull null]);
+    XCTAssertEqualObjects(result[1], @"B, Banana");
+    XCTAssertEqualObjects(result[2], @"C, Carrot");
 }
 
 - (void)testAll
@@ -114,12 +114,12 @@
     BOOL allValuesHaveTheLetterA = [input linq_all:^BOOL(id key, id value) {
         return [value rangeOfString:@"a"].length != 0;
     }];
-    STAssertTrue(allValuesHaveTheLetterA, nil);
+    XCTAssertTrue(allValuesHaveTheLetterA);
 
     BOOL allValuesContainKey = [input linq_all:^BOOL(id key, id value) {
         return [value rangeOfString:key].length != 0;
     }];
-    STAssertFalse(allValuesContainKey, nil);
+    XCTAssertFalse(allValuesContainKey);
 }
 
 - (void)testAny
@@ -131,12 +131,12 @@
     BOOL anyValuesHaveTheLetterN = [input linq_any:^BOOL(id key, id value) {
         return [value rangeOfString:@"n"].length != 0;
     }];
-    STAssertTrue(anyValuesHaveTheLetterN, nil);
+    XCTAssertTrue(anyValuesHaveTheLetterN);
     
     BOOL anyKeysHaveTheLetterN = [input linq_any:^BOOL(id key, id value) {
         return [key rangeOfString:@"n"].length != 0;
     }];
-    STAssertFalse(anyKeysHaveTheLetterN, nil);
+    XCTAssertFalse(anyKeysHaveTheLetterN);
 }
 
 
@@ -150,7 +150,7 @@
     NSUInteger valuesThatContainKey = [input linq_count:^BOOL(id key, id value) {
         return [value rangeOfString:key].length != 0;
     }];
-    STAssertEquals(valuesThatContainKey, (NSUInteger)2, nil);
+    XCTAssertEqual(valuesThatContainKey, (NSUInteger)2);
 }
 
 - (void)testMerge
@@ -166,12 +166,12 @@
     
     NSDictionary* result = [input linq_Merge:merge];
     
-    STAssertEquals(result.allKeys.count, (NSUInteger)5, nil);
-    STAssertEqualObjects(result[@"a"], @"apple", nil);
-    STAssertEqualObjects(result[@"b"], @"banana", nil);
-    STAssertEqualObjects(result[@"c"], @"bat", nil);
-    STAssertEqualObjects(result[@"d"], @"dog", nil);
-    STAssertEqualObjects(result[@"e"], @"egg", nil);
+    XCTAssertEqual(result.allKeys.count, (NSUInteger)5);
+    XCTAssertEqualObjects(result[@"a"], @"apple");
+    XCTAssertEqualObjects(result[@"b"], @"banana");
+    XCTAssertEqualObjects(result[@"c"], @"bat");
+    XCTAssertEqualObjects(result[@"d"], @"dog");
+    XCTAssertEqualObjects(result[@"e"], @"egg");
 }
 
 @end
